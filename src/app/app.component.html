@@ -29,7 +29,7 @@
         <label [for]="task.id">{{ task.title }}</label>
       </div>
       <div class="flex text-xs text-slate-700">
-        <button class="mr-1">edit</button>
+        <button class="mr-1" (click)="onEdit(task.id)">edit</button>
         <button>delete</button>
       </div>
     </div>

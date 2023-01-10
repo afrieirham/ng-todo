@@ -40,4 +40,16 @@ export class AppComponent {
       task.id === id ? { ...task, completed: !task.completed } : task
     );
   }
+
+  onEdit(id: string) {
+    const newTask = window.prompt('Edit task');
+
+    if (!newTask) {
+      return;
+    }
+
+    this.tasks = this.tasks.map((task) =>
+      task.id === id ? { ...task, title: newTask } : task
+    );
+  }
 }
