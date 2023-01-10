@@ -42,7 +42,10 @@ export class AppComponent {
   }
 
   onEdit(id: string) {
-    const newTask = window.prompt('Edit task');
+    const newTask = window.prompt(
+      'Edit task',
+      this.tasks.find((task) => task.id === id)?.title
+    );
 
     if (!newTask) {
       return;
@@ -51,5 +54,15 @@ export class AppComponent {
     this.tasks = this.tasks.map((task) =>
       task.id === id ? { ...task, title: newTask } : task
     );
+  }
+
+  onDelete(id: string) {
+    const confirm = window.confirm('Are you sure?');
+
+    if (!confirm) {
+      return;
+    }
+
+    this.tasks = this.tasks.filter((task) => task.id !== id);
   }
 }
