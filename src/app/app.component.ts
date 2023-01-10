@@ -9,8 +9,16 @@ import { FormControl } from '@angular/forms';
 export class AppComponent {
   task = new FormControl('');
   tasks = [
-    { id: 1, title: 'Learn Angular 15', completed: false },
-    { id: 2, title: 'Build todo app', completed: false },
+    {
+      id: '1',
+      title: 'Learn Angular 15',
+      completed: false,
+    },
+    {
+      id: '2',
+      title: 'Build todo app',
+      completed: false,
+    },
   ];
 
   onSubmit() {
@@ -19,11 +27,17 @@ export class AppComponent {
     }
 
     this.tasks.push({
-      id: Math.random(),
+      id: String(this.task.value),
       title: this.task.value,
-      completed: true,
+      completed: false,
     });
 
     this.task = new FormControl('');
+  }
+
+  onToggle(id: string) {
+    this.tasks = this.tasks.map((task) =>
+      task.id === id ? { ...task, completed: !task.completed } : task
+    );
   }
 }
