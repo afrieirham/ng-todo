@@ -17,7 +17,7 @@ export class TodoItemComponent implements OnInit {
   }
 
   getTasks() {
-    this.tasks = this.todoService.getTasks();
+    this.todoService.getTasks().subscribe((tasks) => (this.tasks = tasks));
   }
 
   onToggle(id: string) {}

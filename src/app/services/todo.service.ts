@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { Task } from '../types/Task';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
-  tasks = [
+  TASKS = [
     {
       id: '1',
       title: 'Learn Angular 15',
@@ -16,11 +17,16 @@ export class TodoService {
       title: 'Build todo app',
       completed: false,
     },
+    {
+      id: '3',
+      title: 'Refactor using service',
+      completed: false,
+    },
   ];
 
   constructor() {}
 
-  getTasks(): Task[] {
-    return this.tasks;
+  getTasks(): Observable<Task[]> {
+    return of(this.TASKS);
   }
 }
