@@ -1,32 +1,26 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { Task } from '../types/Task';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
-  TASKS = [
-    {
-      id: '1',
-      title: 'Learn Angular 15',
-      completed: false,
-    },
-    {
-      id: '2',
-      title: 'Build todo app',
-      completed: false,
-    },
-    {
-      id: '3',
-      title: 'Refactor using service',
-      completed: false,
-    },
-  ];
+  private baseUrl = 'http://localhost:3000';
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      return of(result as T);
+    };
+  }
 
   getTasks(): Observable<Task[]> {
-    return of(this.TASKS);
+    return this.http
+      .get<Task[]>(`${this.baseUrl}/todos`)
+      .pipe(catchError(this.handleError<Task[]>('getTasks')));
   }
 }
