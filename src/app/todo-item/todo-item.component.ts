@@ -16,7 +16,18 @@ export class TodoItemComponent {
 
   constructor(private todoService: TodoService) {}
 
-  onToggle(id: string) {}
+  onToggle(id: string) {
+    const currentTask = this.tasks.find((task) => task.id === id);
+    if (!currentTask) {
+      return alert('Task not found');
+    }
+
+    const task = { ...currentTask, completed: !currentTask.completed };
+    const tasks = this.tasks.map((t) => (t.id === id ? task : t));
+
+    this.tasksChange.emit(tasks);
+    this.todoService.editTask(task).subscribe();
+  }
 
   onEdit(id: string) {
     const title = window.prompt('Edit task', String(this.task?.title));
@@ -31,9 +42,7 @@ export class TodoItemComponent {
     }
 
     const newTask = { ...currentTask, title };
-    const updatedTasks = this.tasks.map((task) =>
-      task.id === id ? newTask : task
-    );
+    const updatedTasks = this.tasks.map((t) => (t.id === id ? newTask : t));
 
     this.tasksChange.emit(updatedTasks);
     this.todoService.editTask(newTask).subscribe();
