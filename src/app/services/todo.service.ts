@@ -40,4 +40,10 @@ export class TodoService {
       )
       .pipe(catchError(this.handleError<Task>('addTask')));
   }
+
+  deleteTask(id: string): Observable<Task> {
+    return this.http
+      .delete<Task>(`${this.baseUrl}/todos/${id}`, this.httpOptions)
+      .pipe(catchError(this.handleError<Task>('deleteTask')));
+  }
 }
