@@ -10,6 +10,7 @@ import { TodoService } from './services/todo.service';
 })
 export class AppComponent implements OnInit {
   tasks: Task[] = [];
+  loading: boolean = false;
 
   constructor(private todoService: TodoService) {}
 
@@ -18,7 +19,11 @@ export class AppComponent implements OnInit {
   }
 
   getTasks() {
-    this.todoService.getTasks().subscribe((tasks) => (this.tasks = tasks));
+    this.loading = true;
+    this.todoService.getTasks().subscribe((tasks) => {
+      this.tasks = tasks;
+      this.loading = false;
+    });
   }
 
   onSubmit(task: HTMLInputElement) {
