@@ -22,5 +22,15 @@ export class AppComponent implements OnInit {
     this.todoService.getTasks().subscribe((tasks) => (this.tasks = tasks));
   }
 
-  onSubmit(task: HTMLInputElement) {}
+  onSubmit(task: HTMLInputElement) {
+    if (!task.value) {
+      return;
+    }
+
+    this.todoService
+      .addTask(task.value)
+      .subscribe((task) => this.tasks.push(task));
+
+    task.value = '';
+  }
 }
