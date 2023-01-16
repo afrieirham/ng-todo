@@ -13,5 +13,7 @@
     </button>
   </form>
 
-  <app-todo-item [tasks]="tasks"></app-todo-item>
+  <div class="flex flex-col mt-6 text-slate-700">
+    <app-todo-item *ngFor="let task of tasks" [task]="task"></app-todo-item>
+  </div>
 </div>

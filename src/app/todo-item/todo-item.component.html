@@ -1,21 +1,16 @@
-<div class="flex flex-col mt-6 text-slate-700">
-  <div *ngFor="let task of tasks" class="flex justify-between">
-    <div
-      class="flex items-center"
-      [ngClass]="{ 'line-through': task.completed }"
-    >
-      <input
-        [id]="task.id"
-        type="checkbox"
-        class="mr-2"
-        [checked]="task.completed"
-        (change)="onToggle(task.id)"
-      />
-      <label [for]="task.id">{{ task.title }}</label>
-    </div>
-    <div class="flex text-xs text-slate-700">
-      <button class="mr-1" (click)="onEdit(task.id)">edit</button>
-      <button (click)="onDelete(task.id)">delete</button>
-    </div>
+<div *ngIf="task" class="flex justify-between">
+  <div class="flex items-center" [ngClass]="{ 'line-through': task.completed }">
+    <input
+      [id]="task.id"
+      type="checkbox"
+      class="mr-2"
+      [checked]="task.completed"
+      (change)="onToggle(task.id)"
+    />
+    <label [for]="task.id">{{ task.title }}</label>
+  </div>
+  <div class="flex text-xs text-slate-700">
+    <button class="mr-1" (click)="onEdit(task.id)">edit</button>
+    <button (click)="onDelete(task.id)">delete</button>
   </div>
 </div>

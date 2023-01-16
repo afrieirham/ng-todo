@@ -7,7 +7,7 @@ import { Task } from '../types/Task';
   styleUrls: ['./todo-item.component.css'],
 })
 export class TodoItemComponent {
-  @Input() tasks: Task[] = [];
+  @Input() task?: Task;
 
   onToggle(id: string) {}
   onEdit(id: string) {}
