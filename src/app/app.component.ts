@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { TodoService } from './services/todo.service';
+
 import { Task } from './types/Task';
+import { TodoService } from './services/todo.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,6 @@ import { Task } from './types/Task';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  task = new FormControl('');
   tasks: Task[] = [];
 
   constructor(private todoService: TodoService) {}
