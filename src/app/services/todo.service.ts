@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 
-import { Task } from '../types/Task';
+import { Task } from '../types/task';
 
 @Injectable({
   providedIn: 'root',
@@ -49,5 +49,12 @@ export class TodoService {
     return this.http
       .delete<Task>(`${this.baseUrl}/todos/${id}`, this.httpOptions)
       .pipe(catchError(this.handleError<Task>('deleteTask')));
+  }
+
+  editTask(newTask: Task): Observable<Task> {
+    const { id, ...task } = newTask;
+    return this.http
+      .put<Task>(`${this.baseUrl}/todos/${id}`, task, this.httpOptions)
+      .pipe(catchError(this.handleError<Task>('editTask')));
   }
 }

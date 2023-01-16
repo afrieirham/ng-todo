@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { TodoService } from '../services/todo.service';
-import { Task } from '../types/Task';
+import { Task } from '../types/task';
 
 @Component({
   selector: 'app-todo-item',
@@ -17,7 +17,27 @@ export class TodoItemComponent {
   constructor(private todoService: TodoService) {}
 
   onToggle(id: string) {}
-  onEdit(id: string) {}
+
+  onEdit(id: string) {
+    const title = window.prompt('Edit task', String(this.task?.title));
+
+    if (!title) {
+      return;
+    }
+
+    const currentTask = this.tasks.find((task) => task.id === id);
+    if (!currentTask) {
+      return alert('Task not found');
+    }
+
+    const newTask = { ...currentTask, title };
+    const updatedTasks = this.tasks.map((task) =>
+      task.id === id ? newTask : task
+    );
+
+    this.tasksChange.emit(updatedTasks);
+    this.todoService.editTask(newTask).subscribe();
+  }
 
   onDelete(id: string) {
     const confirm = window.confirm(`Are you sure to delete task ${id}`);
