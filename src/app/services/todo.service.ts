@@ -8,7 +8,11 @@ import { Task } from '../types/Task';
   providedIn: 'root',
 })
 export class TodoService {
-  private baseUrl = 'http://localhost:3000';
+  private isDev = process.env['NODE_ENV'] === 'development';
+  private baseUrl = this.isDev
+    ? 'http://localhost:3000'
+    : 'https://json-server-eight-teal.vercel.app';
+
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
