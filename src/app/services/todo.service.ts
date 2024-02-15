@@ -8,7 +8,7 @@ import { Task } from '../types/task';
   providedIn: 'root',
 })
 export class TodoService {
-  private baseUrl = 'https://json-server-eight-teal.vercel.app';
+  private baseUrl = 'https://todo-db-snowy.vercel.app';
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
